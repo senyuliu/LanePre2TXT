@@ -1,42 +1,17 @@
-cmake_minimum_required(VERSION 2.8.12)
-project (lanepre2txt)
+cmake_minimum_required(VERSION 2.8)
 
-####################opencv##############
-find_package(OpenCV REQUIRED)
+project(lane-detection-tfcc)
 
-####################GDAL################
-include_directories(/usr/include/gdal)
+SET(LDFLAGS "-std=c++11 -msse4.1 -fPIC -O3 -ggdb -Wall -finline-functions -Wl,--allow-multiple-definition -Wl,--no-whole-archive")
 
-###################PCL##################
-find_package(PCL REQUIRED)  
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${LDFLAGS}")
 
-include_directories(${PCL_INCLUDE_DIRS})
-link_directories(${PCL_LIBRARIES_DIRS})
-add_definitions(${PCL_DEFINITIONS})
-list(REMOVE_ITEM PCL_LIBRARIES "vtkproj4")
-###################Traffic_Lane#####
-set(CMAKE_CXX_STANDARD 14)
-set(CMAKE_CXX_FLAGS "-Wall -Wextra")
-set(CMAKE_CXX_FLAGS_DEBUG "-g")
-# set(CMAKE_CXX_FLAGS_RELEASE "-O2")
-set(CMAKE_BUILD_TYPE "Debug")
-# generate
-set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+# Enable C++11
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
 
+message(STATUS "CMAKE_CXX_COMPILER: ${CMAKE_CXX_COMPILER}")
+message(STATUS "CMAKE_CXX_FLAGS: ${CMAKE_CXX_FLAGS}")
 
-set(MODULE_CORE ./)
-set(MODULE_CORE_INCLUDE ${MODULE_CORE}/include/)
-set(MODULE_CORE_SRC ${MODULE_CORE}/src/)
-set(MODULE_CORE_LIB ${MODULE_CORE}/lib/)
-include_directories(${MODULE_CORE_INCLUDE})
-MESSAGE("PROJECT_ROOT include dirs: ${MODULE_CORE_SRC}")
-
-add_executable(${PROJECT_NAME} ${MODULE_CORE_SRC}/laneprocess.cpp ${MODULE_CORE_SRC}/main.cpp)
-target_link_libraries(${PROJECT_NAME} ${OpenCV_LIBS} gdal glog ${PCL_LIBRARIES})
-
-
-
-
-
-
-
+# Add Subdirectory
+add_subdirectory(src)

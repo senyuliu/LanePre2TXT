@@ -92,7 +92,7 @@ bool CLaneProcess::GetImagePoint(const cv::Mat matImageIn,int label, vector<vect
     
 bool CLaneProcess::GetformatList(std::string &cmd)
 {
-    if(cmd.size() << 3)
+    if(cmd.size() < 3)
     {
         LOG(ERROR) << cmd << " cmd is  too short, please check !"; 
         return false; 
@@ -138,7 +138,7 @@ bool CLaneProcess::GetformatList(std::string &cmd)
 bool run(string Cmd, const string Path_save)
 {
     //parameters
-    if(Cmd.size() << 3)
+    if(Cmd.size() < 3)
     {
         LOG(ERROR) << Cmd << " Cmd is  too short, please check !"; 
         return false; 
@@ -147,7 +147,7 @@ bool run(string Cmd, const string Path_save)
     {
         LOG(INFO) << Cmd ; 
     }
-    if(Path_save.size() << 3)
+    if(Path_save.size() < 3)
     {
         LOG(ERROR) << Path_save << " Path_save is  too short, please check !"; 
         return false; 
